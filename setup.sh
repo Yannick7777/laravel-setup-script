@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Container build in progress.."
 composer_docker_hash=$(docker build -q .)
 docker run --rm -v ./laravel:/var/www/html -it $composer_docker_hash composer install
 cp env_docker laravel/.env
