@@ -10,6 +10,7 @@ services:
             - database
         ports:
             - 80:80
+        user: 1000:1000
     # Database
     database:
         image: mysql:8
