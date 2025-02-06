@@ -1,10 +1,17 @@
 #!/bin/bash
 
+dockerUID=$(id -u)
+dockerGID=$(id -g)
+
+mkdir dbdata
+
 echo "Container build in progress.."
 composer_docker_hash=$(docker build -q .)
-docker run --user 1000:1000 --rm -v ./laravel:/var/www/html -it $composer_docker_hash composer install
+docker run --user $dockerUID:$dockerGID --rm -v ./laravel:/var/www/html -it $composer_docker_hash composer install
 cp env_docker laravel/.env
 cp env_docker .env
+echo "dockerUID=$dockerUID" >> .env
+echo "dockerGID=$dockerGID" >> .env
 docker compose up -d
 sleep 5
 docker compose exec app php artisan key:generate
