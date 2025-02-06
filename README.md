@@ -6,6 +6,7 @@
 - Wait until the VSCode server is installed
 - VSCode should open up. Press F1 and use `WSL: Connect to WSL` command
 - Press F1 and use `Git: Clone` to clone this repo
+- `cd` into this repo (the laravel-setup-script directory)
 - Press F1 and use `Git: Clone` again. Make sure to clone it into this repo's folder and to NOT open the cloned repository and instead click `cancel`
 - Rename your project to `laravel` by either using the `mv` command in the VSCode terminal or by right-clicking on the directory in VSCode and clicking `rename`
 - Start Docker Desktop on Windows
