@@ -12,11 +12,27 @@ cp env_docker laravel/.env
 cp env_docker .env
 echo "dockerUID=$dockerUID" >> .env
 echo "dockerGID=$dockerGID" >> .env
+
+echo "Initialising database.."
+docker compose up database -d &> /dev/null
+while ! docker compose logs database | grep -q 'mysqld: ready for connections'; do
+    echo "not ready.."
+    sleep 0.5
+done
+docker compose down database &> /dev/null
+
 docker compose up -d
-sleep 5
+
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan config:cache
-while true; do sleep 3s && docker compose exec app php artisan migrate:fresh && break; done
+
+echo "Waiting for database to start up..."
+while ! docker compose logs database | grep -q 'mysqld: ready for connections'; do
+    echo "not ready.."
+    sleep 0.5
+done
+
+docker compose exec app php artisan migrate:fresh
 docker compose exec app php artisan db:seed
 docker compose exec app php artisan test
 docker compose down
