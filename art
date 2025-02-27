@@ -2,9 +2,9 @@
 
 if [[ "$(basename $(pwd))" == "laravel" ]]; then
     cd ..
-    ./exec "$@"
+    ./art "$@"
     cd laravel
     exit
 fi
 
-docker compose exec -it app $@
+docker compose exec -it app php artisan $@

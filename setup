@@ -1,9 +1,20 @@
 #!/bin/bash
 
+if [[ "$(basename $(pwd))" == "laravel" ]]; then
+    cd ..
+    ./setup
+    cd laravel
+    exit
+fi
+
+for executable in start stop setup exec art switch-branch-migrate; do
+    ln -sf ../$executable laravel/$executable
+done
+
 dockerUID=$(id -u)
 dockerGID=$(id -g)
 
-mkdir dbdata
+mkdir dbdata &> /dev/null
 
 echo "Container build in progress.."
 composer_docker_hash=$(docker build -q .)
@@ -13,15 +24,27 @@ cp env_docker .env
 echo "dockerUID=$dockerUID" >> .env
 echo "dockerGID=$dockerGID" >> .env
 
-echo "Initialising database.."
+if [ -z "$(ls -A dbdata)" ]; then
+    echo "Initialising database.."
+    docker compose up database -d &> /dev/null
+    while ! docker compose logs database | grep -q 'mysqld: ready for connections'; do
+        sleep 0.5
+    done
+    docker compose down database &> /dev/null
+fi
+
 docker compose up database -d &> /dev/null
 while ! docker compose logs database | grep -q 'mysqld: ready for connections'; do
-    echo "not ready.."
     sleep 0.5
 done
 docker compose down database &> /dev/null
 
 docker compose up -d
+
+echo "Waiting for app to start up..."
+while ! docker compose logs app | grep -q 'Command line: '; do
+    sleep 0.5
+done
 
 docker compose exec app php artisan key:generate
 docker compose exec app php artisan config:cache
@@ -32,7 +55,6 @@ while ! docker compose logs database | grep -q 'mysqld: ready for connections'; 
     sleep 0.5
 done
 
-docker compose exec app php artisan migrate:fresh
-docker compose exec app php artisan db:seed
+docker compose exec app php artisan migrate:fresh --seed
 docker compose exec app php artisan test
 docker compose down
