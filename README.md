@@ -34,3 +34,8 @@ It also includes **mysql:8** and **phpmyadmin:latest**.
 #### Tips & Tricks
 - If you encounter any Docker related issues, it might help to close Docker Engine and stop WSL by executing `wsl -t ubuntu` in your preferred shell. After that, start both again.
 - If you want to commit to your laravel repo with the VSCode F1 commands, make sure to switch to the folder your repo is in first. This can be done via `File` => `Open Folder...`
+
+### Linux
+- If you're a (sigma) Linux user, follow the Windows instructions starting from when the repo should be cloned.
+- Make sure you have access to the `docker` and `docker compose` commands.
+- Make sure you started the Docker Daemon; that's `rc-service docker start` for Open-RC based distros and `systemctl start docker` for Systemd based distros. If you're not sure what type of distro you're running, you probably run a Systemd based one.
