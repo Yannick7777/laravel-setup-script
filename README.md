@@ -14,6 +14,7 @@ It also includes **mysql:8** and **phpmyadmin:latest**.
 
 ## Other useful info
 - To reset the Database, stop the Docker containers, go to the project root and execute `rm -rf dbdata`. Then execute `./setup`.
+- The apps and PMAs port can be changed by editing the `SETUP_APP_PORT` and `SETUP_PMA_PORT` variables in `.env`. This resets after running `./setup`.
 
 ## Setup
 ### Windows with VSCode
