@@ -7,6 +7,8 @@ if [[ "$(basename $(pwd))" == "laravel" ]]; then
     exit
 fi
 
+docker compose down
+
 for executable in start stop setup exec art switch-branch-migrate; do
     ln -sf ../$executable laravel/$executable
 done
