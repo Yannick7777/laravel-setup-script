@@ -1,4 +1,4 @@
-# Idea
+## Idea
 This Project aims to simplify setting up a laravel project in a local development environment for new and experienced developers.
 It stores all data (excluding the built docker image) in a single directory for making it easy for a developer to remove existing projects again and keep their system clutter-free.
 The only **dependencies** for this project are **git** and **docker(-compose)**.
