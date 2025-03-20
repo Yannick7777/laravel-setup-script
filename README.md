@@ -1,7 +1,7 @@
 ## Idea
 This Project aims to simplify setting up a laravel project in a local development environment for new and experienced developers.
 
-It stores all data (excluding the built docker image) in a single directory for making it easy for a developer to remove existing projects again and keep their system clutter-free.
+It stores all data (excluding the built docker image) in a single directory to make it easy for a developer to remove existing projects again and keep their system clutter-free.
 
 The only **dependencies** for this project are **git** and **docker(-compose)**.
 
@@ -32,7 +32,7 @@ It also includes **mysql:8** and **phpmyadmin:latest**.
 - Type `./start` into the VSCode terminal.
 - Done!
 #### Tips & Tricks
-- If you encounter any Docker related issues, it might help to close Docker Engine and stop WSL by executing `wsl -t ubuntu` in your preferred shell. After that, start both again.
+- If you encounter any Docker-related issues, it might help to close Docker Engine and stop WSL by executing `wsl -t ubuntu` in your preferred shell. After that, start both again.
 - If you want to commit to your laravel repo with the VSCode F1 commands, make sure to switch to the folder your repo is in first. This can be done via `File` => `Open Folder...`
 
 ### Linux
