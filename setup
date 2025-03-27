@@ -19,7 +19,7 @@ dockerGID=$(id -g)
 mkdir dbdata &> /dev/null
 
 echo "Container build in progress.."
-composer_docker_hash=$(docker build -q .)
+composer_docker_hash=$(docker build -q docker_build)
 docker run --user $dockerUID:$dockerGID --rm -v ./laravel:/var/www/html -it $composer_docker_hash composer install
 cp env_docker laravel/.env
 cp env_docker .env

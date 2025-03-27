@@ -2,7 +2,7 @@ services:
     # Application & web server
     app:
         build:
-            context: .
+            context: docker/build
         working_dir: /var/www
         volumes:
             - ./laravel/:/var/www
